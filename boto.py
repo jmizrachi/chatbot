@@ -4,6 +4,7 @@ This is the template server side for ChatBot
 from bottle import route, run, template, static_file, request
 import json
 
+#initial commit
 
 @route('/', method='GET')
 def index():
