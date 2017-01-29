@@ -17,14 +17,59 @@ def index():
 def chat():
     user_message = request.POST.get('msg')
     robot_answer=evaluate_robot_answer(user_message)
-    print(user_message)
-    return json.dumps({"animation":"inlove","msg":robot_answer})
+    return json.dumps(robot_answer)
 
 #handler called from chat function
 def evaluate_robot_answer(msg):
-    result = {"animation": "no", "msg": "I don't understand..."}
+
+
+    #handle name
+    if msg.find("name")!=-1:
+        new_msg = msg.split()
+        name = new_msg[-1]
+        hello_name="hello "+name+" nice to meet you"
+        greeting={"animation":"excited","msg":hello_name}
+        return greeting
+
+
     if msg.find("gilad") != -1:
         result = {"animation": "inlove", "msg": "is that you"}
+        return result
+
+    if msg.find("scary") != -1:
+        result = {"animation": "afraid", "msg": "I'm afraid!"}
+        return result
+
+    if msg.find("bored") != -1:
+        result = {"animation": "bored", "msg": "I'm bored too"}
+        return result
+
+    if msg.find("confused") != -1:
+        result = {"animation": "confused", "msg": "you confuse me"}
+        return result
+
+    if msg.find("heartbroken") != -1:
+        result = {"animation": "heartbroken", "msg": "You broke my heart"}
+        return result
+
+    if msg.find("money") != -1:
+        result = {"animation": "money", "msg": "CASH MONEY!!!!"}
+        return result
+
+    if msg.find("ok") != -1:
+        result = {"animation": "ok", "msg": "ok"}
+        return result
+
+    if msg.find("space" or "nasa") != -1:
+        result = {"animation": "takeoff", "msg": "To infinity and beyond"}
+        return result
+
+    if msg.find("funny") != -1:
+        result = {"animation": "giggling", "msg": "You're so funny"}
+        return result
+
+    if msg.find("dancing") != -1:
+        result = {"animation": "dancing", "msg": "let's dance :D"}
         return result
 
     #find all curse words
@@ -32,7 +77,9 @@ def evaluate_robot_answer(msg):
         result="I don't respond to curse words"
         return result
 
-
+    # default result
+    result = {"animation": "no", "msg": "I don't understand..."}
+    return result
 
 #example for ajax
 @route("/test", method='POST')
